@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "pocAuth",
+    "slug": "pocAuth",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "pocAuth"
+}

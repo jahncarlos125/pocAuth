@@ -1,11 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useEffect} from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 export default function App() {
+  useEffect(() => {
+    const verify = async () => {
+      const hasTouch = await LocalAuthentication.hasHardwareAsync();
+      console.log(hasTouch);
+    }
+  
+    verify();
+  }, [])
+  
+
+  const auth = async () => {
+    try {
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: 'Use sua impressão digital para autenticação'
+      })
+      if(result.success){
+        Alert.alert('Usuário autenticado!')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <TouchableOpacity
+      onPress={() => auth()}
+    >
+      <Text>Logar</Text>
+    </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
